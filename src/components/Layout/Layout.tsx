@@ -1,14 +1,17 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Header } from '../index';
+import { Footer, Header } from '../index';
 import { LayoutProps } from '.';
 
 export const Layout: FC<LayoutProps> = () => {
    return (
-      <>
+      <div className="site-wrapper">
          <Header />
-         <Outlet />
-      </>
+         <main>
+            <Outlet />
+         </main>
+         <Footer />
+      </div>
    );
 };

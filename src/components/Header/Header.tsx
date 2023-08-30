@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { HeaderProps } from '.';
 
@@ -10,9 +10,24 @@ export const Header: FC<HeaderProps> = () => {
             #VanLife
          </Link>
          <nav>
-            <Link to="/host">Host</Link>
-            <Link to="/about">About</Link>
-            <Link to="/vans">Vans</Link>
+            <NavLink
+               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
+               to="/host"
+            >
+               Host
+            </NavLink>
+            <NavLink
+               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
+               to="/about"
+            >
+               About
+            </NavLink>
+            <NavLink
+               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
+               to="/vans"
+            >
+               Vans
+            </NavLink>
          </nav>
       </header>
    );

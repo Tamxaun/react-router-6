@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import type { VansType } from '../../miragejs/index';
-import { VanProps } from '.';
+import { VanDetailProps } from '.';
 
-export const Van: React.FC<VanProps> = () => {
+export const VanDetail: React.FC<VanDetailProps> = () => {
    const params = useParams();
    const [vanData, setVanData] = React.useState<Partial<VansType> | null>(null);
 

@@ -31,6 +31,14 @@ export const HostLayout: FC<HostLayoutProps> = () => {
                Income
             </NavLink>
             <NavLink
+               to="/host/vans/"
+               style={({ isActive }) => {
+                  return isActive ? activeStyleLink : undefined;
+               }}
+            >
+               Vans
+            </NavLink>
+            <NavLink
                to="/host/reviews"
                style={({ isActive }) => {
                   return isActive ? activeStyleLink : undefined;

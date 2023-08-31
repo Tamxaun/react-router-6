@@ -91,20 +91,18 @@ export default createServer({
    },
 
    routes() {
-      this.get('http://localhost:5173/api/vans', (schema: AppSchema, request) => {
-         console.log('/vans request', request);
+      this.get('http://localhost:5173/api/vans', (schema: AppSchema) => {
          return schema.all('vans');
       });
 
       this.get('http://localhost:5173/api/vans/:id', (schema: AppSchema, request) => {
-         console.log('/vans/:id request', request);
          const id = request.params.id;
          return schema.find('vans', id);
       });
 
       this.get('http://localhost:5173/api/host/vans', (schema: AppSchema, request) => {
          console.log('/host/vans', request);
-         return schema.where('vans', { hostId: '123' });
+         return schema.findBy('vans', { hostId: '123' });
       });
 
       this.get(

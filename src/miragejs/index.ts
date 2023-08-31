@@ -1,4 +1,6 @@
-import { createServer, Model } from 'miragejs';
+import { createServer, Model, Registry } from 'miragejs';
+import { ModelDefinition } from 'miragejs/-types';
+import Schema from 'miragejs/orm/schema';
 
 export type VansType = {
    id: string;
@@ -7,11 +9,17 @@ export type VansType = {
    description: string;
    imageUrl: string;
    type: string;
+   hostId: string;
 };
+
+const VansModel: ModelDefinition<VansType> = Model.extend({});
+
+type AppRegistry = Registry<{ vans: typeof VansModel }, Record<string, never>>;
+type AppSchema = Schema<AppRegistry>;
 
 export default createServer({
    models: {
-      vans: Model.extend<Partial<VansType>>({}),
+      vans: VansModel,
    },
 
    seeds(server) {
@@ -24,6 +32,7 @@ export default createServer({
          imageUrl:
             'https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png',
          type: 'simple',
+         hostId: '123',
       });
       server.create('van', {
          id: '2',
@@ -33,6 +42,7 @@ export default createServer({
             "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.",
          imageUrl: 'https://assets.scrimba.com/advanced-react/react-router/beach-bum.png',
          type: 'rugged',
+         hostId: '123',
       });
       server.create('van', {
          id: '3',
@@ -43,6 +53,7 @@ export default createServer({
          imageUrl:
             'https://assets.scrimba.com/advanced-react/react-router/reliable-red.png',
          type: 'luxury',
+         hostId: '456',
       });
       server.create('van', {
          id: '4',
@@ -53,6 +64,7 @@ export default createServer({
          imageUrl:
             'https://assets.scrimba.com/advanced-react/react-router/dreamfinder.png',
          type: 'simple',
+         hostId: '789',
       });
       server.create('van', {
          id: '5',
@@ -63,6 +75,7 @@ export default createServer({
          imageUrl:
             'https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png',
          type: 'luxury',
+         hostId: '789',
       });
       server.create('van', {
          id: '6',
@@ -73,23 +86,34 @@ export default createServer({
          imageUrl:
             'https://assets.scrimba.com/advanced-react/react-router/green-wonder.png',
          type: 'rugged',
+         hostId: '123',
       });
    },
 
    routes() {
-      // this.namespace = 'api';
-
-      this.get('http://localhost:5173/api/vans', (schema, request) => {
+      this.get('http://localhost:5173/api/vans', (schema: AppSchema, request) => {
          console.log('/vans request', request);
-         console.log('/vans schema', request);
          return schema.all('vans');
       });
 
-      this.get('http://localhost:5173/api/vans/:id', (schema, request) => {
-         console.log('/vans/:id request', request);
+      this.get('http://localhost:5173/api/vans/:id', (schema: AppSchema, request) => {
          console.log('/vans/:id request', request);
          const id = request.params.id;
          return schema.find('vans', id);
       });
+
+      this.get('http://localhost:5173/api/hosts/vans', (schema: AppSchema, request) => {
+         console.log('/hosts/vans', request);
+         return schema.where('vans', { hostId: '123' });
+      });
+
+      this.get(
+         'http://localhost:5173/api/hosts/vans/:id',
+         (schema: AppSchema, request) => {
+            console.log('/hosts/vans/:id request', request);
+            const id = request.params.id;
+            return schema.where('vans', { hostId: id });
+         },
+      );
    },
 });

@@ -102,17 +102,17 @@ export default createServer({
          return schema.find('vans', id);
       });
 
-      this.get('http://localhost:5173/api/hosts/vans', (schema: AppSchema, request) => {
-         console.log('/hosts/vans', request);
+      this.get('http://localhost:5173/api/host/vans', (schema: AppSchema, request) => {
+         console.log('/host/vans', request);
          return schema.where('vans', { hostId: '123' });
       });
 
       this.get(
-         'http://localhost:5173/api/hosts/vans/:id',
+         'http://localhost:5173/api/host/vans/:id',
          (schema: AppSchema, request) => {
-            console.log('/hosts/vans/:id request', request);
+            console.log('/host/vans/:id request', request);
             const id = request.params.id;
-            return schema.where('vans', { hostId: id });
+            return schema.findBy('vans', { id, hostId: '123' });
          },
       );
    },

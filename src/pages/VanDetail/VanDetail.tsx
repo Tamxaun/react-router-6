@@ -18,7 +18,7 @@ export const VanDetail: React.FC<VanDetailProps> = () => {
       <div className="van-detail-container">
          {vanData ? (
             <div className="van-detail">
-               <img src={vanData?.imageUrl} alt={vanData?.name} />
+               <img src={vanData?.imageUrl} alt={`View of ${vanData?.name}`} />
                <i className={`van-type ${vanData?.type} selected`}>{vanData?.type}</i>
                <h2>{vanData?.name}</h2>
                <p className="van-price">

@@ -14,7 +14,7 @@ export const HostLayout: FC<HostLayoutProps> = () => {
       <>
          <nav className="host-nav">
             <NavLink
-               to="/host"
+               to="."
                end
                style={({ isActive }) => {
                   return isActive ? activeStyleLink : undefined;
@@ -23,7 +23,7 @@ export const HostLayout: FC<HostLayoutProps> = () => {
                Dashboard
             </NavLink>
             <NavLink
-               to="/host/income/"
+               to="income"
                style={({ isActive }) => {
                   return isActive ? activeStyleLink : undefined;
                }}
@@ -31,7 +31,7 @@ export const HostLayout: FC<HostLayoutProps> = () => {
                Income
             </NavLink>
             <NavLink
-               to="/host/vans/"
+               to="vans"
                style={({ isActive }) => {
                   return isActive ? activeStyleLink : undefined;
                }}
@@ -39,7 +39,7 @@ export const HostLayout: FC<HostLayoutProps> = () => {
                Vans
             </NavLink>
             <NavLink
-               to="/host/reviews"
+               to="reviews"
                style={({ isActive }) => {
                   return isActive ? activeStyleLink : undefined;
                }}

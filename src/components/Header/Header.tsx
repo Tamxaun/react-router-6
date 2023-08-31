@@ -3,6 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 
 import { HeaderProps } from '.';
 
+const activeStyleLink = {
+   fontWeight: 'bold',
+   textDecoration: 'underline',
+   color: '#161616',
+};
+
 export const Header: FC<HeaderProps> = () => {
    return (
       <header>
@@ -11,20 +17,20 @@ export const Header: FC<HeaderProps> = () => {
          </Link>
          <nav>
             <NavLink
-               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
-               to="/host"
+               style={({ isActive }) => (isActive ? activeStyleLink : undefined)}
+               to="host"
             >
                Host
             </NavLink>
             <NavLink
-               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
-               to="/about"
+               style={({ isActive }) => (isActive ? activeStyleLink : undefined)}
+               to="about"
             >
                About
             </NavLink>
             <NavLink
-               className={({ isActive }) => (isActive ? 'active-link' : undefined)}
-               to="/vans"
+               style={({ isActive }) => (isActive ? activeStyleLink : undefined)}
+               to="vans"
             >
                Vans
             </NavLink>

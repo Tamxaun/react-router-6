@@ -102,7 +102,7 @@ export default createServer({
 
       this.get('http://localhost:5173/api/host/vans', (schema: AppSchema, request) => {
          console.log('/host/vans', request);
-         return schema.findBy('vans', { hostId: '123' });
+         return schema.where('vans', { hostId: '123' });
       });
 
       this.get(

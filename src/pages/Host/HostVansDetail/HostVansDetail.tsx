@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { VansType } from '../../../miragejs';
 import { HostVansDetailProps } from '.';
@@ -16,6 +16,9 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
 
    return (
       <section>
+         <Link to="?" className="back-button">
+            &larr; <span>Back to all vans</span>
+         </Link>
          {vanData ? (
             <div className="host-van-detail-layout-container">
                <div className="host-van-detail">

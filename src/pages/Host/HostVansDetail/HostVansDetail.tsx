@@ -1,8 +1,14 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 
 import { VansType } from '../../../miragejs';
 import { HostVansDetailProps } from '.';
+
+const activeStyleLink = {
+   fontWeight: 'bold',
+   textDecoration: 'underline',
+   color: '#161616',
+};
 
 export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
    const params = useParams();
@@ -31,6 +37,36 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
                      <h4>${vanData?.price}/day</h4>
                   </div>
                </div>
+               <nav className="host-van-detail-nav">
+                  <NavLink
+                     to="."
+                     end
+                     style={({ isActive }) => {
+                        return isActive ? activeStyleLink : undefined;
+                     }}
+                  >
+                     Details
+                  </NavLink>
+                  <NavLink
+                     to="pricing"
+                     end
+                     style={({ isActive }) => {
+                        return isActive ? activeStyleLink : undefined;
+                     }}
+                  >
+                     Pricing
+                  </NavLink>
+                  <NavLink
+                     to="photos"
+                     end
+                     style={({ isActive }) => {
+                        return isActive ? activeStyleLink : undefined;
+                     }}
+                  >
+                     Photos
+                  </NavLink>
+               </nav>
+               <Outlet />
             </div>
          ) : (
             <h2>Loading...</h2>

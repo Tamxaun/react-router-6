@@ -3,13 +3,13 @@ import { ModelDefinition } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
 
 export type VansType = {
-   id: string;
-   name: string;
-   price: string;
-   description: string;
-   imageUrl: string;
-   type: string;
-   hostId: string;
+   id?: string | undefined;
+   name?: string | undefined;
+   price?: string | undefined;
+   description?: string | undefined;
+   imageUrl?: string | undefined;
+   type?: string | undefined;
+   hostId?: string | undefined;
 };
 
 const VansModel: ModelDefinition<VansType> = Model.extend({});

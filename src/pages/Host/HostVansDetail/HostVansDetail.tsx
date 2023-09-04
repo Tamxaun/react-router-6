@@ -49,7 +49,6 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
                   </NavLink>
                   <NavLink
                      to="pricing"
-                     end
                      style={({ isActive }) => {
                         return isActive ? activeStyleLink : undefined;
                      }}
@@ -58,7 +57,6 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
                   </NavLink>
                   <NavLink
                      to="photos"
-                     end
                      style={({ isActive }) => {
                         return isActive ? activeStyleLink : undefined;
                      }}

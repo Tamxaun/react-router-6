@@ -1,7 +1,15 @@
 import { FC } from 'react';
 
+import { useVan } from '../../pages/Host/HostVansDetail/HostVansDetail';
 import { HostVanPricingProps } from '.';
 
 export const HostVanPricing: FC<HostVanPricingProps> = () => {
-   return <h2>Pricing view here</h2>;
+   const { currentVan } = useVan();
+
+   return (
+      <h3 className="host-van-price">
+         ${currentVan?.price}
+         <span>/day</span>
+      </h3>
+   );
 };

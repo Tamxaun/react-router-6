@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom';
 
 import { VansType } from '../../../miragejs';
 import { HostVansDetailProps } from '.';
@@ -10,14 +10,16 @@ const activeStyleLink = {
    color: '#161616',
 };
 
+type ContextType = { currentVan: VansType | null };
+
 export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
    const params = useParams();
-   const [vanData, setVanData] = React.useState<Partial<VansType> | null>(null);
+   const [currentVan, setcurrentVanData] = React.useState<Partial<VansType> | null>(null);
 
    React.useEffect(() => {
       fetch(`http://localhost:5173/api/host/vans/${params.id}`)
          .then((result) => result.json())
-         .then((data) => setVanData(data.vans));
+         .then((data) => setcurrentVanData(data.vans));
    }, [params]);
 
    return (
@@ -25,16 +27,16 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
          <Link to=".." relative="path" className="back-button">
             &larr; <span>Back to all vans</span>
          </Link>
-         {vanData ? (
+         {currentVan ? (
             <div className="host-van-detail-layout-container">
                <div className="host-van-detail">
-                  <img src={vanData?.imageUrl} alt={`View of ${vanData?.name}`} />
+                  <img src={currentVan?.imageUrl} alt={`View of ${currentVan?.name}`} />
                   <div className="host-van-detail-info-text">
-                     <i className={`van-type van-type-${vanData.type}`}>
-                        {vanData?.type}
+                     <i className={`van-type van-type-${currentVan.type}`}>
+                        {currentVan?.type}
                      </i>
-                     <h3>{vanData?.name}</h3>
-                     <h4>${vanData?.price}/day</h4>
+                     <h3>{currentVan?.name}</h3>
+                     <h4>${currentVan?.price}/day</h4>
                   </div>
                </div>
                <nav className="host-van-detail-nav">
@@ -64,7 +66,7 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
                      Photos
                   </NavLink>
                </nav>
-               <Outlet />
+               <Outlet context={{ currentVan } satisfies ContextType} />
             </div>
          ) : (
             <h2>Loading...</h2>
@@ -72,3 +74,7 @@ export const HostVansDetail: React.FC<HostVansDetailProps> = () => {
       </section>
    );
 };
+
+export function useVan() {
+   return useOutletContext<ContextType>();
+}

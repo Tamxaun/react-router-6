@@ -1,8 +1,12 @@
-import './App.css';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { HostLayout, Layout } from './components/index';
+import {
+   HostLayout,
+   HostVanInfo,
+   HostVanPhotos,
+   HostVanPricing,
+   Layout,
+} from './components/index';
 import {
    About,
    Dashboard,
@@ -28,7 +32,11 @@ export default function App() {
                   <Route index element={<Dashboard />} />
                   <Route path="income" element={<Income />} />
                   <Route path="vans" element={<HostVans />} />
-                  <Route path="vans/:id" element={<HostVansDetail />} />
+                  <Route path="vans/:id" element={<HostVansDetail />}>
+                     <Route index element={<HostVanInfo />} />
+                     <Route path="pricing" element={<HostVanPricing />} />
+                     <Route path="photos" element={<HostVanPhotos />} />
+                  </Route>
                   <Route path="reviews" element={<Reviews />} />
                </Route>
             </Route>

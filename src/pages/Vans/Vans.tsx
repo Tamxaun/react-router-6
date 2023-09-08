@@ -1,39 +1,24 @@
 import React from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 
-import { type Error, getVans } from '../../api';
+import { getVans } from '../../api';
 import type { VansType } from '../../miragejs/index';
 import { VansProps } from '.';
 
+export async function vansLoader() {
+   const data: VansType[] = await getVans();
+   return data;
+}
+
 export const Vans: React.FC<VansProps> = () => {
-   const [vansData, setVansData] = React.useState<Partial<VansType[]> | null>(null);
+   const vansData = useLoaderData();
    const [searchParams, setSearchParams] = useSearchParams();
-   const [loading, setLoading] = React.useState(false);
-   const [error, setError] = React.useState<Error>(null);
 
    const typeFilter = searchParams.get('type');
 
-   React.useEffect(() => {
-      async function loadVans() {
-         try {
-            setLoading(true);
-            const data: VansType[] = await getVans();
-            setVansData(data);
-         } catch (err: unknown) {
-            console.log('err', err);
-            setError(err as Error);
-         } finally {
-            setLoading(false);
-            console.log(vansData);
-         }
-      }
-
-      loadVans();
-   }, []);
-
    const displayedVanElements = typeFilter
-      ? vansData?.filter((van) => van?.type?.toLowerCase() === typeFilter)
-      : vansData;
+      ? (vansData as VansType[])?.filter((van) => van?.type?.toLowerCase() === typeFilter)
+      : (vansData as VansType[]);
 
    const vanElements = displayedVanElements?.map((van) => (
       <div key={van?.id} className="van-tile">
@@ -53,13 +38,6 @@ export const Vans: React.FC<VansProps> = () => {
          </Link>
       </div>
    ));
-
-   if (loading) {
-      return <h1>Loading...</h1>;
-   }
-   if (error) {
-      return <h1>There was an error: {error.message}</h1>;
-   }
 
    return (
       <div className="van-list-container">

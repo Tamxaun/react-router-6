@@ -473,3 +473,8 @@ i[class*='van-type-'] {
    background-color: #161616;
    color: white;
 }
+.error-page-content {
+   padding-inline: 23px;
+   color: #161616;
+   margin-bottom: 55px;
+}

@@ -1,4 +1,4 @@
-export type Error = {
+export type ErrorType = {
    message: string;
    statusText: string;
    status: string;

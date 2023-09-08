@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import {
+   Error,
    HostLayout,
    HostVanInfo,
    HostVanPhotos,
@@ -23,6 +24,7 @@ import {
    Reviews,
    VanDetail,
    Vans,
+   vansLoader,
 } from './pages';
 
 const router = createBrowserRouter(
@@ -30,7 +32,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
          <Route index element={<Home />} />
          <Route path="about" element={<About />} />
-         <Route path="vans" element={<Vans />} />
+         <Route
+            path="vans"
+            element={<Vans />}
+            loader={vansLoader}
+            errorElement={<Error />}
+         />
          <Route path="vans/:id" element={<VanDetail />} />
          <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />

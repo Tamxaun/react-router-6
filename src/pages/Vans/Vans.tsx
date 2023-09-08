@@ -1,19 +1,34 @@
 import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
+import { type Error, getVans } from '../../api';
 import type { VansType } from '../../miragejs/index';
 import { VansProps } from '.';
 
 export const Vans: React.FC<VansProps> = () => {
    const [vansData, setVansData] = React.useState<Partial<VansType[]> | null>(null);
    const [searchParams, setSearchParams] = useSearchParams();
+   const [loading, setLoading] = React.useState(false);
+   const [error, setError] = React.useState<Error>(null);
 
    const typeFilter = searchParams.get('type');
 
    React.useEffect(() => {
-      fetch('http://localhost:5173/api/vans')
-         .then((result) => result.json())
-         .then((data) => setVansData(data.vans));
+      async function loadVans() {
+         try {
+            setLoading(true);
+            const data: VansType[] = await getVans();
+            setVansData(data);
+         } catch (err: unknown) {
+            console.log('err', err);
+            setError(err as Error);
+         } finally {
+            setLoading(false);
+            console.log(vansData);
+         }
+      }
+
+      loadVans();
    }, []);
 
    const displayedVanElements = typeFilter
@@ -38,6 +53,13 @@ export const Vans: React.FC<VansProps> = () => {
          </Link>
       </div>
    ));
+
+   if (loading) {
+      return <h1>Loading...</h1>;
+   }
+   if (error) {
+      return <h1>There was an error: {error.message}</h1>;
+   }
 
    return (
       <div className="van-list-container">
@@ -70,7 +92,7 @@ export const Vans: React.FC<VansProps> = () => {
                </button>
             ) : null}
          </div>
-         {vansData ? <div className="van-list">{vanElements}</div> : <h2>Loading...</h2>}
+         <div className="van-list">{vanElements}</div>
       </div>
    );
 };

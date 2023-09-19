@@ -1,39 +1,41 @@
 import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 
+import { getVanDetail } from '../../api';
 import type { VansType } from '../../miragejs/index';
 import { VanDetailProps } from '.';
 
-export const VanDetail: React.FC<VanDetailProps> = () => {
-   const params = useParams();
-   const [vanData, setVanData] = React.useState<Partial<VansType> | null>(null);
-   const { state } = useLocation();
+export async function vanDetaileLoader(id: string) {
+   const data: VansType[] = await getVanDetail(id);
+   return data;
+}
 
-   React.useEffect(() => {
-      fetch(`http://localhost:5173/api/vans/${params.id}`)
-         .then((result) => result.json())
-         .then((data) => setVanData(data.vans));
-   }, [params]);
+export const VanDetail: React.FC<VanDetailProps> = () => {
+   const vanDetailData = useLoaderData() as VansType;
+   const { state } = useLocation();
 
    return (
       <div className="van-detail-container">
          <Link to={`../${state?.search}`} relative="path" className="back-button">
             &larr; <span>Back to {state?.type || 'all'} vans</span>
          </Link>
-         {vanData ? (
+         {
             <div className="van-detail">
-               <img src={vanData?.imageUrl} alt={`View of ${vanData?.name}`} />
-               <i className={`van-type ${vanData?.type} selected`}>{vanData?.type}</i>
-               <h2>{vanData?.name}</h2>
+               <img
+                  src={vanDetailData?.imageUrl}
+                  alt={`View of ${vanDetailData?.name}`}
+               />
+               <i className={`van-type ${vanDetailData?.type} selected`}>
+                  {vanDetailData?.type}
+               </i>
+               <h2>{vanDetailData?.name}</h2>
                <p className="van-price">
-                  <span>${vanData?.price}</span>/day
+                  <span>${vanDetailData?.price}</span>/day
                </p>
-               <p>{vanData?.description}</p>
+               <p>{vanDetailData?.description}</p>
                <button className="link-button">Rent this van</button>
             </div>
-         ) : (
-            <h2>Loading...</h2>
-         )}
+         }
       </div>
    );
 };

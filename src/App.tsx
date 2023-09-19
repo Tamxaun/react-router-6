@@ -17,6 +17,7 @@ import {
    About,
    Dashboard,
    Home,
+   hostVanDetaileLoader,
    HostVans,
    HostVansDetail,
    hostVansLoader,
@@ -44,7 +45,11 @@ const router = createBrowserRouter(
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
             <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
-            <Route path="vans/:id" element={<HostVansDetail />}>
+            <Route
+               path="vans/:id"
+               element={<HostVansDetail />}
+               loader={({ params }) => hostVanDetaileLoader(params.id as string)}
+            >
                <Route index element={<HostVanInfo />} />
                <Route path="pricing" element={<HostVanPricing />} />
                <Route path="photos" element={<HostVanPhotos />} />

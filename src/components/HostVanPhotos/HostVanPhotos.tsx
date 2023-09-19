@@ -4,11 +4,11 @@ import { useVan } from '../../pages/Host/HostVansDetail/HostVansDetail';
 import { HostVanPhotosProps } from '.';
 
 export const HostVanPhotos: FC<HostVanPhotosProps> = () => {
-   const { currentVan } = useVan();
+   const { vanDetailData } = useVan();
    return (
       <img
-         src={currentVan?.imageUrl}
-         alt={`View of ${currentVan?.name}`}
+         src={vanDetailData?.imageUrl}
+         alt={`View of ${vanDetailData?.name}`}
          className="host-van-detail-image"
       />
    );

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
+import { getHostVans } from '../../../api';
 import { VansType } from '../../../miragejs/index';
 import { HostVansProps } from '.';
 
-export const HostVans: React.FC<HostVansProps> = () => {
-   const [vansData, setVansData] = React.useState<Partial<VansType[]> | null>(null);
+export async function hostVansLoader() {
+   const data: VansType[] = await getHostVans();
+   return data;
+}
 
-   React.useEffect(() => {
-      fetch('http://localhost:5173/api/host/vans')
-         .then((result) => result.json())
-         .then((data) => setVansData(data.vans));
-   }, []);
+export const HostVans: React.FC<HostVansProps> = () => {
+   const vansData = useLoaderData() as VansType[];
 
    const hostVansEls = vansData?.map((van) => (
       <Link to={van?.id || ''} key={van?.id} className="host-van-link-wrapper">
@@ -28,9 +28,7 @@ export const HostVans: React.FC<HostVansProps> = () => {
    return (
       <section>
          <h1 className="host-vans-title">Your listed vans</h1>
-         <div className="host-vans-list">
-            {vansData ? <section>{hostVansEls}</section> : <h2>Loading...</h2>}
-         </div>
+         <div className="host-vans-list">{hostVansEls}</div>
       </section>
    );
 };

@@ -11,14 +11,14 @@ export async function vansLoader() {
 }
 
 export const Vans: React.FC<VansProps> = () => {
-   const vansData = useLoaderData();
+   const vansData = useLoaderData() as VansType[];
    const [searchParams, setSearchParams] = useSearchParams();
 
    const typeFilter = searchParams.get('type');
 
    const displayedVanElements = typeFilter
-      ? (vansData as VansType[])?.filter((van) => van?.type?.toLowerCase() === typeFilter)
-      : (vansData as VansType[]);
+      ? vansData?.filter((van) => van?.type?.toLowerCase() === typeFilter)
+      : vansData;
 
    const vanElements = displayedVanElements?.map((van) => (
       <div key={van?.id} className="van-tile">

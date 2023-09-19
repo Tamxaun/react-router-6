@@ -19,6 +19,7 @@ import {
    Home,
    HostVans,
    HostVansDetail,
+   hostVansLoader,
    Income,
    NotFound,
    Reviews,
@@ -42,7 +43,7 @@ const router = createBrowserRouter(
          <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
-            <Route path="vans" element={<HostVans />} />
+            <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
             <Route path="vans/:id" element={<HostVansDetail />}>
                <Route index element={<HostVanInfo />} />
                <Route path="pricing" element={<HostVanPricing />} />

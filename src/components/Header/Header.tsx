@@ -21,9 +21,10 @@ export const Header: FC<HeaderProps> = () => {
    const isNormalLoad = navigation.state === 'loading' && navigation.formData == null;
    return (
       <header>
-         <Link className="site-logo" to="/">
-            #VanLife <code style={stateText}>({isNormalLoad ? 'Loading' : 'Ready'})</code>
-         </Link>
+         <div className="site-logo">
+            <Link to="/">#VanLife </Link>
+            <code style={stateText}>({isNormalLoad ? 'Loading' : 'Ready'})</code>
+         </div>
          <nav>
             <NavLink
                style={({ isActive }) => (isActive ? activeStyleLink : undefined)}

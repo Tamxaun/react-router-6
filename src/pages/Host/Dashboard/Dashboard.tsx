@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 
 import { DashboardProps } from '.';
 
-export const Dashboard: FC<DashboardProps> = (props) => {
+export const Dashboard: React.FC<DashboardProps> = () => {
    return <h1>Dashboard</h1>;
 };

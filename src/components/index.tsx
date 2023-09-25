@@ -1,3 +1,4 @@
+export * from './AuthRequired';
 export * from './Error';
 export * from './Footer';
 export * from './Header';

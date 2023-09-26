@@ -7,7 +7,13 @@ export const AuthRequired: React.FC<AuthRequiredProps> = () => {
    const authenticated = false;
 
    if (!authenticated) {
-      return <Navigate to="/login" replace={true} />;
+      return (
+         <Navigate
+            to="/login"
+            state={{ message: 'You must log in first' }}
+            replace={true}
+         />
+      );
    }
 
    return <Outlet />;

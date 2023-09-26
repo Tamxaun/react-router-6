@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link, NavLink, useNavigation } from 'react-router-dom';
 
+import avatarImage from '../../assets/images/avatar-icon.png';
 import { HeaderProps } from '.';
 
 const activeStyleLink = {
@@ -44,6 +45,9 @@ export const Header: FC<HeaderProps> = () => {
             >
                Vans
             </NavLink>
+            <Link to="login" className="login-link">
+               <img className="login-icon" src={avatarImage} alt={'Avatar icon'} />
+            </Link>
          </nav>
       </header>
    );

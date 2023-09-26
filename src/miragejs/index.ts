@@ -1,4 +1,4 @@
-import { createServer, Model, Registry } from 'miragejs';
+import { createServer, Model, Registry, Response } from 'miragejs';
 import { ModelDefinition } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
 
@@ -11,15 +11,26 @@ export type VansType = {
    type?: string | undefined;
    hostId?: string | undefined;
 };
+export type UserType = {
+   id?: string | undefined;
+   email?: string | undefined;
+   password?: string | undefined;
+   name?: string | undefined;
+};
 
 const VansModel: ModelDefinition<VansType> = Model.extend({});
+const UsersModel: ModelDefinition<UserType> = Model.extend({});
 
-type AppRegistry = Registry<{ vans: typeof VansModel }, Record<string, never>>;
+type AppRegistry = Registry<
+   { vans: typeof VansModel; users: typeof UsersModel },
+   Record<string, never>
+>;
 type AppSchema = Schema<AppRegistry>;
 
 export default createServer({
    models: {
       vans: VansModel,
+      users: UsersModel,
    },
 
    seeds(server) {
@@ -88,6 +99,12 @@ export default createServer({
          type: 'rugged',
          hostId: '123',
       });
+      server.create('user', {
+         id: '123',
+         email: 'b@b.com',
+         password: 'p123',
+         name: 'Bob',
+      });
    },
 
    routes() {
@@ -112,6 +129,30 @@ export default createServer({
          console.log('/host/vans/:id request', request);
          const id = request.params.id;
          return schema.findBy('vans', { id, hostId: '123' });
+      });
+
+      this.post('/login', (schema, request) => {
+         const { email, password } = JSON.parse(request.requestBody);
+         // ⚠️ This is an extremely naive version of authentication. Please don't
+         // do this in the real world, and never save raw text passwords
+         // in your database 😅
+         const foundUser = schema.findBy('users', { email, password });
+
+         if (!foundUser) {
+            return new Response(
+               401,
+               {},
+               { message: 'No user with those credentials found!' },
+            );
+         }
+
+         // At the very least, don't send the password back to the client 😅
+         foundUser.password = undefined;
+
+         return {
+            user: foundUser,
+            token: "Enjoy your pizza, here's your tokens.",
+         };
       });
    },
 });

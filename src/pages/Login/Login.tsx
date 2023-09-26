@@ -5,12 +5,12 @@ import { LoginProps } from '.';
 export const Login: React.FC<LoginProps> = () => {
    const [loginFormData, setLoginFormData] = React.useState({ email: '', password: '' });
 
-   function handleSubmit(e) {
+   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       console.log(loginFormData);
    }
 
-   function handleChange(e) {
+   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       const { name, value } = e.target;
       setLoginFormData((prev) => ({
          ...prev,

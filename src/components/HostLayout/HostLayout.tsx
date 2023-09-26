@@ -10,6 +10,10 @@ const activeStyleLink = {
 };
 
 export const HostLayout: FC<HostLayoutProps> = () => {
+   function fakeLogOut() {
+      localStorage.removeItem('isLoggedIn');
+   }
+
    return (
       <>
          <nav className="host-nav">
@@ -46,6 +50,7 @@ export const HostLayout: FC<HostLayoutProps> = () => {
             >
                Reviews
             </NavLink>
+            <button onClick={fakeLogOut}>Log Out</button>
          </nav>
          <Outlet />
       </>

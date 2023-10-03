@@ -1,22 +1,50 @@
+import { initializeApp } from 'firebase/app';
+import { collection, getDocs, getFirestore } from 'firebase/firestore/lite';
+
+const firebaseConfig = {
+   apiKey: 'AIzaSyDyvhTBgRFQvPvSX1_b0vzA8jvEQVSkCQE',
+   authDomain: 'react-router-6-vanlife.firebaseapp.com',
+   projectId: 'react-router-6-vanlife',
+   storageBucket: 'react-router-6-vanlife.appspot.com',
+   messagingSenderId: '570270966210',
+   appId: '1:570270966210:web:b6e89a1df37e49c42f365b',
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const vansCollectionRef = collection(db, 'vans');
+
+export async function getVans() {
+   const querySnapshot = await getDocs(vansCollectionRef);
+   const vans = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+   }));
+
+   return vans;
+}
+
 export type ErrorType = {
    message: string;
    statusText: string;
    status: string;
 } | null;
 
-export async function getVans() {
-   const res = await fetch('/api/vans');
-   if (!res.ok) {
-      throw {
-         message: 'Failed to fetch vans',
-         statusText: res.statusText,
-         status: res.status,
-      };
-   }
+// mirage data
+// export async function getVans() {
+//    const res = await fetch('/api/vans');
+//    if (!res.ok) {
+//       throw {
+//          message: 'Failed to fetch vans',
+//          statusText: res.statusText,
+//          status: res.status,
+//       };
+//    }
 
-   const data = await res.json();
-   return data.vans;
-}
+//    const data = await res.json();
+//    return data.vans;
+// }
 export async function getVanDetail(id: string) {
    const res = await fetch(`/api/vans/${id}`);
    if (!res.ok) {

@@ -111,6 +111,9 @@ export default createServer({
       this.urlPrefix = 'http://localhost:5173';
       this.namespace = '/api';
 
+      // Pass through all requests from firebase
+      this.passthrough('https://firestore.googleapis.com/**');
+
       this.get('/vans', (schema: AppSchema) => {
          return schema.all('vans');
       });

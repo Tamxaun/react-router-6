@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, getDocs, getFirestore } from 'firebase/firestore/lite';
+import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
    apiKey: 'AIzaSyDyvhTBgRFQvPvSX1_b0vzA8jvEQVSkCQE',
@@ -24,6 +24,15 @@ export async function getVans() {
 
    return vans;
 }
+export async function getVanDetail(id: string) {
+   const docRef = doc(db, 'vans', id);
+   const docSnapshot = await getDoc(docRef);
+
+   return {
+      id: docSnapshot.id,
+      ...docSnapshot.data(),
+   };
+}
 
 export type ErrorType = {
    message: string;
@@ -45,19 +54,19 @@ export type ErrorType = {
 //    const data = await res.json();
 //    return data.vans;
 // }
-export async function getVanDetail(id: string) {
-   const res = await fetch(`/api/vans/${id}`);
-   if (!res.ok) {
-      throw {
-         message: 'Failed to fetch vans',
-         statusText: res.statusText,
-         status: res.status,
-      };
-   }
+// export async function getVanDetail(id: string) {
+//    const res = await fetch(`/api/vans/${id}`);
+//    if (!res.ok) {
+//       throw {
+//          message: 'Failed to fetch vans',
+//          statusText: res.statusText,
+//          status: res.status,
+//       };
+//    }
 
-   const data = await res.json();
-   return data.vans;
-}
+//    const data = await res.json();
+//    return data.vans;
+// }
 
 export async function getHostVans() {
    const res = await fetch('/api/host/vans');

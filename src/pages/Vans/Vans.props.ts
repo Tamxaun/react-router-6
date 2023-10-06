@@ -1,1 +1,1 @@
-export interface VansProps {};
+export interface VansProps {}

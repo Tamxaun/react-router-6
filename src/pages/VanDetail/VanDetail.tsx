@@ -6,7 +6,7 @@ import type { VansType } from '../../miragejs/index';
 import { VanDetailProps } from '.';
 
 export async function vanDetaileLoader(id: string) {
-   const data: VansType[] = await getVanDetail(id);
+   const data: VansType = await getVanDetail(id);
    return data;
 }
 

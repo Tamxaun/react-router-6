@@ -9,6 +9,8 @@ import {
    where,
 } from 'firebase/firestore/lite';
 
+import { VansType } from './miragejs';
+
 const firebaseConfig = {
    apiKey: 'AIzaSyDyvhTBgRFQvPvSX1_b0vzA8jvEQVSkCQE',
    authDomain: 'react-router-6-vanlife.firebaseapp.com',
@@ -56,10 +58,12 @@ export async function getHostVanDetail(id: string) {
    const docRef = doc(db, 'vans', id);
    const docSnapshot = await getDoc(docRef);
 
-   return {
-      id: docSnapshot.id,
+   const data: VansType = {
       ...docSnapshot.data(),
+      id: docSnapshot.id,
    };
+
+   return data;
 }
 export type ErrorType = {
    message: string;

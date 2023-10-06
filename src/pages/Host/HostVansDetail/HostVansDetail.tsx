@@ -14,7 +14,7 @@ const activeStyleLink = {
 type ContextType = { vanDetailData: VansType | null };
 
 export async function hostVanDetaileLoader(id: string) {
-   const data: VansType[] = await getHostVanDetail(id);
+   const data = await getHostVanDetail(id);
    return data;
 }
 

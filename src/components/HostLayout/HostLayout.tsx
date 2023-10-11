@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
 import { HostLayoutProps } from '.';
 
@@ -10,8 +10,10 @@ const activeStyleLink = {
 };
 
 export const HostLayout: FC<HostLayoutProps> = () => {
+   const navigate = useNavigate();
    function fakeLogOut() {
       localStorage.removeItem('isLoggedIn');
+      navigate('/login');
    }
 
    return (

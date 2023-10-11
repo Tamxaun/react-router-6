@@ -20,6 +20,7 @@ const stateText = {
 export const Header: FC<HeaderProps> = () => {
    const navigation = useNavigation();
    const location = useLocation();
+   const isLoggedIn = localStorage.getItem('isLoggedIn');
 
    const isNormalLoad = navigation.state === 'loading' && navigation.formData == null;
 
@@ -48,7 +49,11 @@ export const Header: FC<HeaderProps> = () => {
             >
                Vans
             </NavLink>
-            <Link to="login" className="login-link" state={{ from: location }}>
+            <Link
+               to={isLoggedIn ? '/host' : 'login'}
+               className="login-link"
+               state={{ from: location }}
+            >
                <img className="login-icon" src={avatarImage} alt={'Avatar icon'} />
             </Link>
          </nav>

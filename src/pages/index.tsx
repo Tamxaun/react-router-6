@@ -5,7 +5,7 @@ export * from './Host/HostVans';
 export * from './Host/HostVansDetail';
 export * from './Host/Income';
 export * from './Host/Reviews';
-export * from './Login';
+export { Login, action as loginAction } from './Login';
 export * from './NotFound';
 export * from './VanDetail';
 export * from './Vans';

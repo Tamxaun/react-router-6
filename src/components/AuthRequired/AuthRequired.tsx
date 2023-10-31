@@ -5,13 +5,12 @@ import { AuthRequiredProps } from '.';
 
 export const AuthRequired: React.FC<AuthRequiredProps> = () => {
    const location = useLocation();
-
    const isLoggedIn = localStorage.getItem('isLoggedIn');
 
    if (!isLoggedIn) {
       return (
          <Navigate
-            to="/login"
+            to={`/login?from=${location.pathname}`}
             state={{ from: location.pathname, message: 'You must log in first' }}
             replace={true}
          />

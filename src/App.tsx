@@ -24,6 +24,7 @@ import {
    hostVansLoader,
    Income,
    Login,
+   loginAction,
    NotFound,
    Reviews,
    VanDetail,
@@ -43,7 +44,7 @@ const router = createBrowserRouter(
             element={<VanDetail />}
             loader={({ params }) => vanDetaileLoader(params.id as string)}
          />
-         <Route path="login" element={<Login />} />
+         <Route path="login" element={<Login />} action={loginAction} />
          <Route element={<AuthRequired />}>
             <Route path="host" element={<HostLayout />}>
                <Route index element={<Dashboard />} />

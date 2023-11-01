@@ -8,4 +8,4 @@ export * from './Host/Reviews';
 export { Login, action as loginAction } from './Login';
 export * from './NotFound';
 export * from './VanDetail';
-export * from './Vans';
+export { Vans, loader as vansLoader } from './Vans';

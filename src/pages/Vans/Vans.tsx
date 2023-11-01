@@ -5,7 +5,7 @@ import { getVans } from '../../api';
 import type { VansType } from '../../miragejs/index';
 import { VansProps } from '.';
 
-export async function vansLoader() {
+export async function loader() {
    const data: VansType[] = await getVans();
    return data;
 }

@@ -4,17 +4,17 @@ import { useVan } from '../../pages/Host/HostVansDetail/HostVansDetail';
 import { HostVanInfoProps } from '.';
 
 export const HostVanInfo: FC<HostVanInfoProps> = () => {
-   const { vanDetailData } = useVan();
+   const { loadedVanDetails } = useVan();
    return (
       <section className="host-van-detail-info">
          <h4>
-            Name: <span>{vanDetailData?.name}</span>
+            Name: <span>{loadedVanDetails?.name}</span>
          </h4>
          <h4>
-            Category: <span>{vanDetailData?.type}</span>
+            Category: <span>{loadedVanDetails?.type}</span>
          </h4>
          <h4>
-            Description: <span>{vanDetailData?.description}</span>
+            Description: <span>{loadedVanDetails?.description}</span>
          </h4>
          <h4>
             Visibility: <span>Public</span>
